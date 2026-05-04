@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inicio{% endblock %} — Nexova RRHH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/nexova.css' %}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+
+    <div class="topbar"></div>
+
+    <header class="navbar">
+        <div class="navbar-inner">
+
+            <a href="{% url 'home' %}" class="navbar-logo">
+                <img src="https://escnil994files.blob.core.windows.net/web/logo_nexova01.png"
+                     alt="Nexova Business Group"
+                     class="navbar-logo-img">
+            </a>
+
+            <div class="navbar-divider"></div>
+
+            <ul class="nav-links">
+                {% for item in nav_items %}
+                <li>
+                    <a href="{{ item.url }}"
+                       class="nav-link {% if request.resolver_match.url_name == item.name %}active{% endif %}">
+                        {{ item.label }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="navbar-user">
+                <div class="navbar-user-info">
+                    <div class="navbar-user-name">{{ user.get_full_name|default:user.username }}</div>
+                    <div class="navbar-user-role">Recursos Humanos</div>
+                </div>
+                <div class="navbar-divider"></div>
+                <a href="{% url 'logout' %}" class="btn-logout">Salir</a>
+            </div>
+
+        </div>
+    </header>
+
+{% endif %}
+
+{% if messages %}
+<div class="flash-wrap">
+    {% for message in messages %}
+    <div class="flash {% if message.tags == 'error' %}flash-error{% elif message.tags == 'success' %}flash-success{% else %}flash-info{% endif %}">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+{% if user.is_authenticated %}
+
+    <footer class="footer">
+        <div class="footer-accent"></div>
+        <div class="footer-inner">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <img src="https://escnil994files.blob.core.windows.net/web/logo_nexova01.png"
+                         alt="Nexova Business Group"
+                         class="footer-logo">
+                    <p class="footer-desc">
+                        Plataforma interna de gestión de recursos humanos para
+                        Nexova Business Group, S.A. de C.V.
+                    </p>
+                    <div class="footer-version">
+                        <span class="footer-version-dot"></span>
+                        <span class="footer-version-text">Sistema RRHH v1.0</span>
+                    </div>
+                </div>
+
+                <div class="footer-modules">
+                    <p class="footer-heading">Módulos</p>
+                    <ul class="footer-links">
+                        {% for item in nav_items %}
+                            {% if item.name != 'home' %}
+                            <li>
+                                <a href="{{ item.url }}" class="footer-link">
+                                    <span class="footer-link-arrow">→</span>
+                                    {{ item.label }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="footer-info">
+                    <p class="footer-heading">Contacto</p>
+                    <ul class="footer-contact">
+                        <li class="footer-contact-item">
+                            <span class="footer-contact-icon">▣</span>
+                            San Salvador, El Salvador
+                        </li>
+                        <li class="footer-contact-item">
+                            <span class="footer-contact-icon">☎</span>
+                            +503 2200-0000
+                        </li>
+                        <li class="footer-contact-item">
+                            <span class="footer-contact-icon">✉</span>
+                            rrhh@nexovagroup.com
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">
+                    &copy; 2026 Nexova Business Group, S.A. de C.V. Todos los derechos reservados.
+                </p>
+                <p class="footer-bottom-text">
+                    Universidad de El Salvador · RH115 Grupo 02
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+{% endif %}
+
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

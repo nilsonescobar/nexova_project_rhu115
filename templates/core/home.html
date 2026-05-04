@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <svg class="hero-hex" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 0L100 28v60L50 115L0 88V28Z" fill="none" stroke="#F4A924" stroke-width="2"/>
+        <path d="M50 18L82 36v44L50 97L18 80V36Z" fill="none" stroke="#F4A924" stroke-width="1.5" opacity=".6"/>
+    </svg>
+
+    <div class="hero-inner">
+        <div class="hero-row">
+            <div>
+                <p class="section-eyebrow">Panel principal</p>
+                <h1 class="hero-title">
+                    Bienvenido, <span class="hero-title-accent">{{ user.get_full_name|default:user.username }}</span>
+                </h1>
+                <p class="hero-sub">Gestión de recursos humanos · Nexova Business Group</p>
+            </div>
+
+            <div class="hero-badge">
+                <div class="hero-badge-icon">◆</div>
+                <div>
+                    <p class="hero-badge-label">Período activo</p>
+                    <p class="hero-badge-value">Mayo 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-body">
+
+    <section>
+        <div class="section-header">
+            <p class="section-eyebrow">Acceso a funciones</p>
+            <h2 class="section-title">Módulos del sistema</h2>
+            <p class="section-sub">Seleccione un módulo para continuar</p>
+        </div>
+
+        <div class="modules-grid">
+            {% for m in modules %}
+            <a href="{{ m.url }}" class="module-card">
+                <div class="module-card-body">
+                    <div class="module-card-top">
+                        <div class="module-icon module-icon-{{ m.color|default:'blue' }}">
+                            {{ m.icon }}
+                        </div>
+                        <span class="badge-status badge-status-{{ m.status_type|default:'dev' }}">
+                            {{ m.status }}
+                        </span>
+                    </div>
+                    <div>
+                        <p class="module-title">{{ m.title }}</p>
+                        <p class="module-desc">{{ m.description }}</p>
+                    </div>
+                    <div class="module-tags">
+                        {% for tag in m.tags %}
+                        <span class="module-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header">
+            <p class="section-eyebrow">Indicadores clave</p>
+            <h2 class="section-title">Resumen del período</h2>
+            <p class="section-sub">Mayo 2026</p>
+        </div>
+
+        <div class="stats-grid">
+            {% for s in stats %}
+            <div class="stat-card">
+                <p class="stat-label">{{ s.label }}</p>
+                <p class="stat-value">{{ s.value }}</p>
+                <p class="stat-sub">{{ s.sub }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="bottom-grid">
+
+        <div class="info-card">
+            <p class="info-card-title">Marco legal vigente</p>
+            <div class="legal-list">
+                {% for law in legal_items %}
+                <div class="legal-item">
+                    <span class="legal-dot"></span>
+                    <div>
+                        <p class="legal-item-title">{{ law.title }}</p>
+                        <p class="legal-item-desc">{{ law.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="info-card">
+            <p class="info-card-title">Acciones rápidas</p>
+            <div class="action-list">
+                {% for a in quick_actions %}
+                <a href="{{ a.url }}" class="action-item">
+                    <span class="action-icon">{{ a.icon }}</span>
+                    <div class="action-body">
+                        <p class="action-label">{{ a.label }}</p>
+                        <p class="action-desc">{{ a.description }}</p>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

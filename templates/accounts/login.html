@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — Nexova RRHH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/nexova.css' %}">
+</head>
+
+<body class="login-page">
+
+    <div class="topbar"></div>
+
+    <svg class="login-hex-deco login-hex-1" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 0L100 28v60L50 115L0 88V28Z" fill="none" stroke="#F4A924" stroke-width="1.5"/>
+    </svg>
+    <svg class="login-hex-deco login-hex-2" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 0L100 28v60L50 115L0 88V28Z" fill="none" stroke="#F4A924" stroke-width="1.5"/>
+        <path d="M50 18L82 36v44L50 97L18 80V36Z" fill="none" stroke="#F4A924" stroke-width="1" opacity=".5"/>
+    </svg>
+
+    <div class="login-content">
+        <div class="login-shell">
+
+            <div class="login-logo-wrap">
+                <img src="https://escnil994files.blob.core.windows.net/web/logo_nexova01.png"
+                     alt="Nexova Business Group"
+                     class="login-logo">
+            </div>
+
+            <div class="login-card">
+
+                <div class="login-card-header">
+                    <p class="login-card-eyebrow">Acceso al sistema</p>
+                    <h1 class="login-card-title">Sistema de Recursos Humanos</h1>
+                </div>
+
+                <div class="login-card-body">
+
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="login-alert">
+                            <span>{{ message }}</span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST" class="login-form">
+                        {% csrf_token %}
+
+                        <div class="field">
+                            <label class="field-label">Usuario</label>
+                            <input type="text"
+                                   name="username"
+                                   placeholder="Ingrese su usuario"
+                                   class="field-input"
+                                   required autofocus>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">Contraseña</label>
+                            <input type="password"
+                                   name="password"
+                                   placeholder="Ingrese su contraseña"
+                                   class="field-input"
+                                   required>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <span class="btn-submit-label">Iniciar sesión →</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="login-card-footer">
+                    <p class="login-card-footer-text">
+                        Nexova Business Group &copy; 2026 — RH115 Grupo 02
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="login-bottom-note">
+                Universidad de El Salvador · Facultad de Ingeniería y Arquitectura
+            </p>
+
+        </div>
+    </div>
+
+    <div class="topbar"></div>
+
+</body>
+</html>
