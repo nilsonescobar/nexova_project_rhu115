@@ -1,0 +1,20 @@
+name: Despliegue Automatico a Azure
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cargar codigo fuente
+      uses: actions/checkout@v4
+
+    - name: Enviar a Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'nexova-business-group'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
