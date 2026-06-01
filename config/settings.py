@@ -11,9 +11,14 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
+# ── Hosts permitidos para Azure y Render ──
 AZURE_HOSTNAME = os.environ.get('WEBSITE_HOSTNAME')
 if AZURE_HOSTNAME:
     ALLOWED_HOSTS.append(AZURE_HOSTNAME)
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -107,6 +112,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/login/'
 
+# ── CSRF Trusted Origins para Azure y Render ──
 CSRF_TRUSTED_ORIGINS = [
     'https://*.ngrok-free.app',
     'https://*.ngrok.io',
@@ -114,3 +120,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 if AZURE_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(f'https://{AZURE_HOSTNAME}')
+
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
