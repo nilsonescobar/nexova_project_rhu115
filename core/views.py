@@ -22,13 +22,13 @@ MODULES = [
     },
     {
         'title':       'Prestaciones y Planilla',
-        'description': 'Cálculo automático de cuotas patronales, planilla mensual y generación de boletas.',
+        'description': 'Cálculo automático de cuotas patronales y del trabajador, planilla mensual y generación de boletas.',
         'url':         '/prestaciones/',
         'icon':        '💰',
         'color':       'amber',
         'status':      'En desarrollo',
         'status_type': 'dev',
-        'tags':        ['ISSS', 'AFP', 'Aguinaldo', 'Vacaciones', 'Boleta'],
+        'tags':        ['ISSS', 'AFP', 'ISR', 'Aguinaldo', 'Vacaciones', 'Quincena 25', 'Boleta'],
     },
     {
         'title':       'Ausencias e Incapacidades',
@@ -50,16 +50,34 @@ STATS = [
 ]
 
 LEGAL_ITEMS = [
-    {'title': 'Código de Trabajo de El Salvador',
-     'description': 'Base legal para vacaciones, aguinaldo y prestaciones laborales.'},
-    {'title': 'Reforma laboral octubre 2025',
-     'description': 'Fecha de corte 12 de diciembre para aguinaldo proporcional.'},
-    {'title': 'ISSS — Cuota patronal 7.5%',
-     'description': 'Aplicada sobre salario máximo de referencia de $1,000.00.'},
-    {'title': 'AFP — Cuota patronal 8.75%',
-     'description': 'Sin tope salarial según reforma previsional 2025.'},
-    {'title': 'INSAFORP — 1%',
-     'description': 'Aplica a empresas con diez o más empleados.'},
+    {
+        'title': 'Código de Trabajo de El Salvador',
+        'description': 'Base legal para vacaciones, aguinaldo y prestaciones laborales (Arts. 177–202).',
+    },
+    {
+        'title': 'Reforma laboral octubre 2025',
+        'description': 'Pago del aguinaldo entre el 20 de octubre y el 20 de diciembre (reforma Art. 200).',
+    },
+    {
+        'title': 'ISSS — Cuota patronal 7.5% / trabajador 3%',
+        'description': 'Aplicada sobre salario máximo de referencia de $1,000.00. Máximo patronal $75/mes.',
+    },
+    {
+        'title': 'AFP — Cuota patronal 8.75% / trabajador 7.25%',
+        'description': 'Sin tope salarial según reforma previsional 2025. Se aplica sobre salario total.',
+    },
+    {
+        'title': 'ISR — Retención mensual en planilla',
+        'description': 'Tramos: exento hasta $550, 10% hasta $895.24, 20% hasta $2,038.10, 30% en adelante (D.E. N.° 10, 2025).',
+    },
+    {
+        'title': 'INCAF — 1% sobre planilla',
+        'description': 'Aplica a empresas con diez o más empleados. Sustituyó al INSAFORP (Decreto N.° 893, nov. 2023).',
+    },
+    {
+        'title': 'Quincena 25 — Decreto Legislativo N.° 499',
+        'description': 'Pago equivalente al 50% del salario mensual para trabajadores con salario ≤ $1,500. Pagadero entre el 15 y 25 de enero. Obligatorio desde 2027.',
+    },
 ]
 
 QUICK_ACTIONS = [
@@ -88,11 +106,15 @@ MODULE_FEATURES = {
         'breadcrumb':       'Módulo de prestaciones',
         'module_icon':      '💰',
         'planned_features': [
-            'Cálculo de cuotas ISSS, AFP e INSAFORP por empleado',
-            'Generación de planilla mensual completa',
-            'Cálculo de aguinaldo según antigüedad y reforma 2025',
-            'Cálculo de vacaciones con recargo del 30% (Art. 177)',
-            'Impresión de boleta de pago individual',
+            'Cálculo de cuotas ISSS patronal (7.5%) y trabajador (3%) con tope de $1,000',
+            'Cálculo de cuotas AFP patronal (8.75%) y trabajador (7.25%) sin tope salarial',
+            'Retención de ISR según tabla de tramos vigente (Decreto Ejecutivo N.° 10, 2025)',
+            'Cálculo de aporte INCAF (1% planilla total) para empresas con 10 o más empleados',
+            'Cálculo de aguinaldo según antigüedad (15, 19 o 21 días) y reforma octubre 2025',
+            'Cálculo de vacaciones con recargo del 30% (Art. 177 Código de Trabajo)',
+            'Registro y cálculo de Quincena 25 para salarios iguales o menores a $1,500',
+            'Generación de planilla mensual completa con costo total del empleador',
+            'Impresión de boleta de pago individual con desglose completo de deducciones',
         ],
     },
     'ausencias': {
