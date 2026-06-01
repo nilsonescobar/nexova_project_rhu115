@@ -13,6 +13,14 @@ jobs:
     - name: Cargar codigo fuente
       uses: actions/checkout@v4
 
+    - name: Configurar Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Instalar dependencias
+      run: pip install -r requirements.txt
+
     - name: Enviar a Azure Web App
       uses: azure/webapps-deploy@v3
       with:
